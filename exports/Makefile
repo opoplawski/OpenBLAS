@@ -116,7 +116,7 @@ dllinit.$(SUFFIX) : dllinit.c
 
 ifeq ($(OSNAME), Linux)
 
-so : ../$(LIBSONAME)
+so : ../$(LIBSONAME) ../$(LIBBLASSONAME) ../$(LIBLAPACKSONAME)
 
 ifeq (, $(SYMBOLPREFIX)$(SYMBOLSUFFIX))
 ../$(LIBSONAME) : ../$(LIBNAME) linktest.c
@@ -139,7 +139,49 @@ else
 endif
 	rm -f linktest
 
+ifeq (, $(SYMBOLPREFIX)$(SYMBOLSUFFIX))
+../$(LIBBLASSONAME) : ../$(LIBBLASNAME) linktest-blas.c
+else
+../$(LIBBLASNAME).renamed : ../$(LIBBLASNAME) objcopy.def
+	$(OBJCOPY) --redefine-syms objcopy.def ../$(LIBBLASNAME) ../$(LIBBLASNAME).renamed
+../$(LIBBLASSONAME) : ../$(LIBBLASNAME).renamed linktest-blas.c
 endif
+ifneq ($(C_COMPILER), LSB)
+	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o ../$(LIBBLASSONAME) \
+	-Wl,--whole-archive $< -Wl,--no-whole-archive \
+	-Wl,-soname,$(LIBBLASSONAME) $(EXTRALIB)
+	echo $(CC) $(CFLAGS) $(LDFLAGS) -w -o linktest linktest-blas.c ../$(LIBBLASSONAME) $(FEXTRALIB) && echo OK.
+else
+#for LSB
+	env LSBCC_SHAREDLIBS=gfortran $(CC) $(CFLAGS) $(LDFLAGS) -shared -o ../$(LIBBLASSONAME) \
+	-Wl,--whole-archive $< -Wl,--no-whole-archive \
+	-Wl,-soname,$(LIBBLASSONAME) $(EXTRALIB)
+	echo $(FC) $(CFLAGS) $(LDFLAGS) -w -o linktest linktest-blas.c ../$(LIBBLASSONAME) $(FEXTRALIB) && echo OK.
+endif
+	rm -f linktest
+
+ifeq (, $(SYMBOLPREFIX)$(SYMBOLSUFFIX))
+../$(LIBLAPACKSONAME) : ../$(LIBLAPACKNAME) linktest-lapack.c
+else
+../$(LIBLAPACKNAME).renamed : ../$(LIBLAPACKNAME) objcopy.def
+	$(OBJCOPY) --redefine-syms objcopy.def ../$(LIBLAPACKNAME) ../$(LIBLAPACKNAME).renamed
+../$(LIBLAPACKSONAME) : ../$(LIBLAPACKNAME).renamed linktest-lapack.c
+endif
+ifneq ($(C_COMPILER), LSB)
+	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o ../$(LIBLAPACKSONAME) \
+	-Wl,--whole-archive $< -Wl,--no-whole-archive \
+	-Wl,-soname,$(LIBLAPACKSONAME) $(EXTRALIB)
+	echo $(CC) $(CFLAGS) $(LDFLAGS) -w -o linktest linktest-lapack.c ../$(LIBLAPACKSONAME) $(FEXTRALIB) && echo OK.
+else
+#for LSB
+	env LSBCC_SHAREDLIBS=gfortran $(CC) $(CFLAGS) $(LDFLAGS) -shared -o ../$(LIBLAPACKSONAME) \
+	-Wl,--whole-archive $< -Wl,--no-whole-archive \
+	-Wl,-soname,$(LIBLAPACKSONAME) $(EXTRALIB)
+	echo $(FC) $(CFLAGS) $(LDFLAGS) -w -o linktest linktest-lapack.c ../$(LIBLAPACKSONAME) $(FEXTRALIB) && echo OK.
+endif
+	rm -f linktest
+
+endif   # OSNAME Linux
 
 #http://stackoverflow.com/questions/7656425/makefile-ifeq-logical-or
 ifeq ($(OSNAME), $(filter $(OSNAME),FreeBSD NetBSD))
@@ -222,6 +264,12 @@ test : linktest.c
 
 linktest.c : gensymbol ../Makefile.system ../getarch.c
 	perl ./gensymbol linktest  $(ARCH) $(BU) $(EXPRECISION) $(NO_CBLAS) $(NO_LAPACK) $(NO_LAPACKE) $(NEED2UNDERSCORES) $(ONLY_CBLAS) "$(SYMBOLPREFIX)" "$(SYMBOLSUFFIX)" > linktest.c
+
+linktest-blas.c : gensymbol ../Makefile.system ../getarch.c
+	perl ./gensymbol linktest  $(ARCH) $(BU) $(EXPRECISION) 1 1 1 $(NEED2UNDERSCORES) 0 "$(SYMBOLPREFIX)" "$(SYMBOLSUFFIX)" > linktest-blas.c
+
+linktest-lapack.c : gensymbol ../Makefile.system ../getarch.c
+	perl ./gensymbol linktest  $(ARCH) $(BU) $(EXPRECISION) 1 $(NO_LAPACK) 1 $(NEED2UNDERSCORES) 0 "$(SYMBOLPREFIX)" "$(SYMBOLSUFFIX)" > linktest-lapack.c
 
 clean ::
 	@rm -f *.def *.dylib __.SYMDEF* *.renamed

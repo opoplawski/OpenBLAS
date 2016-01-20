@@ -26,10 +26,13 @@ SBLAS1OBJS    = \
 		scopy.$(SUFFIX) sscal.$(SUFFIX) \
 		sdot.$(SUFFIX) sdsdot.$(SUFFIX) dsdot.$(SUFFIX) \
 		sasum.$(SUFFIX) snrm2.$(SUFFIX) \
-		smax.$(SUFFIX) samax.$(SUFFIX) ismax.$(SUFFIX) isamax.$(SUFFIX) \
-		smin.$(SUFFIX) samin.$(SUFFIX) ismin.$(SUFFIX) isamin.$(SUFFIX) \
-		srot.$(SUFFIX) srotg.$(SUFFIX) srotm.$(SUFFIX) srotmg.$(SUFFIX) \
-		saxpby.$(SUFFIX)
+		isamax.$(SUFFIX) \
+		srot.$(SUFFIX) srotg.$(SUFFIX) srotm.$(SUFFIX) srotmg.$(SUFFIX)
+
+SBLAS1EOBJS   = \
+		saxpby.$(SUFFIX) \
+		smax.$(SUFFIX) samax.$(SUFFIX) ismax.$(SUFFIX) \
+		smin.$(SUFFIX) samin.$(SUFFIX) ismin.$(SUFFIX) isamin.$(SUFFIX)
 
 SBLAS2OBJS    = \
 		sgemv.$(SUFFIX) sger.$(SUFFIX) \
@@ -42,7 +45,9 @@ SBLAS2OBJS    = \
 
 SBLAS3OBJS    = \
 		sgemm.$(SUFFIX) ssymm.$(SUFFIX) strmm.$(SUFFIX) \
-		strsm.$(SUFFIX) ssyrk.$(SUFFIX) ssyr2k.$(SUFFIX) \
+		strsm.$(SUFFIX) ssyrk.$(SUFFIX) ssyr2k.$(SUFFIX)
+
+SBLAS3EOBJS   = \
 		somatcopy.$(SUFFIX) simatcopy.$(SUFFIX)\
 		sgeadd.$(SUFFIX)
 
@@ -52,10 +57,13 @@ DBLAS1OBJS    = \
 		dcopy.$(SUFFIX) dscal.$(SUFFIX) \
 		ddot.$(SUFFIX) \
 		dasum.$(SUFFIX) dnrm2.$(SUFFIX) \
-		dmax.$(SUFFIX) damax.$(SUFFIX) idmax.$(SUFFIX) idamax.$(SUFFIX) \
-		dmin.$(SUFFIX) damin.$(SUFFIX) idmin.$(SUFFIX) idamin.$(SUFFIX) \
-		drot.$(SUFFIX) drotg.$(SUFFIX) drotm.$(SUFFIX) drotmg.$(SUFFIX) \
-		daxpby.$(SUFFIX)
+		idamax.$(SUFFIX) \
+		drot.$(SUFFIX) drotg.$(SUFFIX) drotm.$(SUFFIX) drotmg.$(SUFFIX)
+
+DBLAS1EOBJS   = \
+		daxpby.$(SUFFIX) \
+		dmax.$(SUFFIX) damax.$(SUFFIX) idmax.$(SUFFIX) \
+		dmin.$(SUFFIX) damin.$(SUFFIX) idmin.$(SUFFIX) idamin.$(SUFFIX)
 
 DBLAS2OBJS    = \
 		dgemv.$(SUFFIX) dger.$(SUFFIX) \
@@ -68,75 +76,93 @@ DBLAS2OBJS    = \
 
 DBLAS3OBJS    = \
 		dgemm.$(SUFFIX) dsymm.$(SUFFIX) dtrmm.$(SUFFIX) \
-		dtrsm.$(SUFFIX) dsyrk.$(SUFFIX) dsyr2k.$(SUFFIX) \
+		dtrsm.$(SUFFIX) dsyrk.$(SUFFIX) dsyr2k.$(SUFFIX)
+
+DBLAS3EOBJS   = \
 		domatcopy.$(SUFFIX) dimatcopy.$(SUFFIX)\
 		dgeadd.$(SUFFIX) 
 
 CBLAS1OBJS    = \
-		caxpy.$(SUFFIX) caxpyc.$(SUFFIX) cswap.$(SUFFIX) \
+		caxpy.$(SUFFIX) cswap.$(SUFFIX) \
 		ccopy.$(SUFFIX) cscal.$(SUFFIX) csscal.$(SUFFIX) \
 		cdotc.$(SUFFIX)  cdotu.$(SUFFIX) \
 		scasum.$(SUFFIX) scnrm2.$(SUFFIX) \
-		scamax.$(SUFFIX) icamax.$(SUFFIX) \
-		scamin.$(SUFFIX) icamin.$(SUFFIX) \
-		csrot.$(SUFFIX) crotg.$(SUFFIX) \
-		caxpby.$(SUFFIX)
+		icamax.$(SUFFIX) \
+		csrot.$(SUFFIX) crotg.$(SUFFIX)
+
+CBLAS1EOBJS   = \
+		caxpby.$(SUFFIX) caxpyc.$(SUFFIX) \
+		scamax.$(SUFFIX) \
+		scamin.$(SUFFIX) icamin.$(SUFFIX)
 
 CBLAS2OBJS    = \
 		cgemv.$(SUFFIX) cgeru.$(SUFFIX) cgerc.$(SUFFIX) \
-		ctrsv.$(SUFFIX) ctrmv.$(SUFFIX) csymv.$(SUFFIX) \
-		csyr.$(SUFFIX)  csyr2.$(SUFFIX) cgbmv.$(SUFFIX) \
-		csbmv.$(SUFFIX) cspmv.$(SUFFIX) \
-		cspr.$(SUFFIX)  cspr2.$(SUFFIX) \
+		ctrsv.$(SUFFIX) ctrmv.$(SUFFIX) \
+		cgbmv.$(SUFFIX) \
 		ctbsv.$(SUFFIX) ctbmv.$(SUFFIX) \
 		ctpsv.$(SUFFIX) ctpmv.$(SUFFIX) \
 		chemv.$(SUFFIX) chbmv.$(SUFFIX) \
 		cher.$(SUFFIX)  cher2.$(SUFFIX) \
 		chpmv.$(SUFFIX) chpr.$(SUFFIX)  chpr2.$(SUFFIX)
 
+CBLAS2EOBJS   = \
+		csbmv.$(SUFFIX) cspmv.$(SUFFIX) \
+		cspr.$(SUFFIX)  cspr2.$(SUFFIX) \
+		csymv.$(SUFFIX) csyr.$(SUFFIX)  csyr2.$(SUFFIX)
+
 CBLAS3OBJS    = \
 		cgemm.$(SUFFIX) csymm.$(SUFFIX) ctrmm.$(SUFFIX) \
 		ctrsm.$(SUFFIX) csyrk.$(SUFFIX) csyr2k.$(SUFFIX) \
-	       	chemm.$(SUFFIX) cherk.$(SUFFIX) cher2k.$(SUFFIX) \
+	       	chemm.$(SUFFIX) cherk.$(SUFFIX) cher2k.$(SUFFIX)
+
+CBLAS3EOBJS   = \
 		comatcopy.$(SUFFIX) cimatcopy.$(SUFFIX)\
 		cgeadd.$(SUFFIX) 
 
 ZBLAS1OBJS    = \
-		zaxpy.$(SUFFIX) zaxpyc.$(SUFFIX) zswap.$(SUFFIX) \
+		zaxpy.$(SUFFIX) zswap.$(SUFFIX) \
 		zcopy.$(SUFFIX) zscal.$(SUFFIX) zdscal.$(SUFFIX) \
 		zdotc.$(SUFFIX)  zdotu.$(SUFFIX) \
 		dzasum.$(SUFFIX)  dznrm2.$(SUFFIX) \
-		dzamax.$(SUFFIX) izamax.$(SUFFIX) \
-		dzamin.$(SUFFIX) izamin.$(SUFFIX) \
-		zdrot.$(SUFFIX) zrotg.$(SUFFIX) \
-		zaxpby.$(SUFFIX)
+		izamax.$(SUFFIX) \
+		zdrot.$(SUFFIX) zrotg.$(SUFFIX)
+
+ZBLAS1EOBJS   = \
+		zaxpby.$(SUFFIX) zaxpyc.$(SUFFIX) \
+		dzamax.$(SUFFIX) dzamin.$(SUFFIX) \
+		izamin.$(SUFFIX)
 
 ZBLAS2OBJS    = \
 		zgemv.$(SUFFIX) zgeru.$(SUFFIX) zgerc.$(SUFFIX) \
-		ztrsv.$(SUFFIX) ztrmv.$(SUFFIX) zsymv.$(SUFFIX) \
-		zsyr.$(SUFFIX)  zsyr2.$(SUFFIX) zgbmv.$(SUFFIX) \
-		zsbmv.$(SUFFIX) zspmv.$(SUFFIX) \
-		zspr.$(SUFFIX)  zspr2.$(SUFFIX) \
+		ztrsv.$(SUFFIX) ztrmv.$(SUFFIX) \
+		zgbmv.$(SUFFIX) \
 		ztbsv.$(SUFFIX) ztbmv.$(SUFFIX) \
 		ztpsv.$(SUFFIX) ztpmv.$(SUFFIX) \
 		zhemv.$(SUFFIX) zhbmv.$(SUFFIX) \
 		zher.$(SUFFIX)  zher2.$(SUFFIX) \
 		zhpmv.$(SUFFIX) zhpr.$(SUFFIX)  zhpr2.$(SUFFIX)
 
+ZBLAS2EOBJS    = \
+		zsbmv.$(SUFFIX) zspmv.$(SUFFIX) \
+		zspr.$(SUFFIX)  zspr2.$(SUFFIX) \
+		zsymv.$(SUFFIX) zsyr.$(SUFFIX)  zsyr2.$(SUFFIX)
+
 ZBLAS3OBJS    = \
 		zgemm.$(SUFFIX) zsymm.$(SUFFIX) ztrmm.$(SUFFIX) \
 		ztrsm.$(SUFFIX) zsyrk.$(SUFFIX) zsyr2k.$(SUFFIX) \
-	       	zhemm.$(SUFFIX) zherk.$(SUFFIX) zher2k.$(SUFFIX) \
+	       	zhemm.$(SUFFIX) zherk.$(SUFFIX) zher2k.$(SUFFIX)
+
+ZBLAS3EOBJS   = \
 		zomatcopy.$(SUFFIX) zimatcopy.$(SUFFIX)\
 		zgeadd.$(SUFFIX) 
 
 ifeq ($(SUPPORT_GEMM3M), 1)
 
 # CBLAS3OBJS   +=  cgemm3m.$(SUFFIX) csymm3m.$(SUFFIX) chemm3m.$(SUFFIX)
-CBLAS3OBJS   +=  cgemm3m.$(SUFFIX)
+CBLAS3EOBJS   +=  cgemm3m.$(SUFFIX)
 
 # ZBLAS3OBJS   +=  zgemm3m.$(SUFFIX) zsymm3m.$(SUFFIX) zhemm3m.$(SUFFIX)
-ZBLAS3OBJS   +=  zgemm3m.$(SUFFIX)
+ZBLAS3EOBJS   +=  zgemm3m.$(SUFFIX)
 
 endif
 
@@ -263,7 +289,10 @@ CSBLAS1OBJS   = \
 	cblas_isamax.$(SUFFIX) cblas_sasum.$(SUFFIX) cblas_saxpy.$(SUFFIX) \
 	cblas_scopy.$(SUFFIX) cblas_sdot.$(SUFFIX) cblas_sdsdot.$(SUFFIX) cblas_dsdot.$(SUFFIX) \
 	cblas_srot.$(SUFFIX) cblas_srotg.$(SUFFIX) cblas_srotm.$(SUFFIX) cblas_srotmg.$(SUFFIX) \
-	cblas_sscal.$(SUFFIX) cblas_sswap.$(SUFFIX) cblas_snrm2.$(SUFFIX) cblas_saxpby.$(SUFFIX)
+	cblas_sscal.$(SUFFIX) cblas_sswap.$(SUFFIX) cblas_snrm2.$(SUFFIX)
+
+CSBLAS1EOBJS  = \
+	cblas_saxpby.$(SUFFIX)
 
 CSBLAS2OBJS   = \
 	cblas_sgemv.$(SUFFIX) cblas_sger.$(SUFFIX) cblas_ssymv.$(SUFFIX) cblas_strmv.$(SUFFIX) \
@@ -273,14 +302,20 @@ CSBLAS2OBJS   = \
 
 CSBLAS3OBJS   = \
 	cblas_sgemm.$(SUFFIX) cblas_ssymm.$(SUFFIX) cblas_strmm.$(SUFFIX) cblas_strsm.$(SUFFIX) \
-	cblas_ssyrk.$(SUFFIX) cblas_ssyr2k.$(SUFFIX) cblas_somatcopy.$(SUFFIX)  cblas_simatcopy.$(SUFFIX)\
+	cblas_ssyrk.$(SUFFIX) cblas_ssyr2k.$(SUFFIX)
+
+CSBLAS3EOBJS  = \
+	cblas_somatcopy.$(SUFFIX)  cblas_simatcopy.$(SUFFIX)\
 	cblas_sgeadd.$(SUFFIX)
 
 CDBLAS1OBJS   = \
 	cblas_idamax.$(SUFFIX) cblas_dasum.$(SUFFIX) cblas_daxpy.$(SUFFIX) \
 	cblas_dcopy.$(SUFFIX) cblas_ddot.$(SUFFIX) \
 	cblas_drot.$(SUFFIX) cblas_drotg.$(SUFFIX) cblas_drotm.$(SUFFIX) cblas_drotmg.$(SUFFIX) \
-	cblas_dscal.$(SUFFIX) cblas_dswap.$(SUFFIX) cblas_dnrm2.$(SUFFIX) cblas_daxpby.$(SUFFIX)
+	cblas_dscal.$(SUFFIX) cblas_dswap.$(SUFFIX) cblas_dnrm2.$(SUFFIX)
+
+CDBLAS1EOBJS  = \
+	cblas_daxpby.$(SUFFIX)
 
 CDBLAS2OBJS   = \
 	cblas_dgemv.$(SUFFIX) cblas_dger.$(SUFFIX) cblas_dsymv.$(SUFFIX) cblas_dtrmv.$(SUFFIX) \
@@ -288,9 +323,12 @@ CDBLAS2OBJS   = \
 	cblas_dsbmv.$(SUFFIX) cblas_dspmv.$(SUFFIX) cblas_dspr.$(SUFFIX) cblas_dspr2.$(SUFFIX) \
 	cblas_dtbmv.$(SUFFIX) cblas_dtbsv.$(SUFFIX) cblas_dtpmv.$(SUFFIX) cblas_dtpsv.$(SUFFIX)
 
-CDBLAS3OBJS   += \
+CDBLAS3OBJS   = \
 	cblas_dgemm.$(SUFFIX) cblas_dsymm.$(SUFFIX) cblas_dtrmm.$(SUFFIX) cblas_dtrsm.$(SUFFIX) \
-	cblas_dsyrk.$(SUFFIX) cblas_dsyr2k.$(SUFFIX) cblas_domatcopy.$(SUFFIX)  cblas_dimatcopy.$(SUFFIX) \
+	cblas_dsyrk.$(SUFFIX) cblas_dsyr2k.$(SUFFIX)
+
+CDBLAS3EOBJS  = \
+	cblas_domatcopy.$(SUFFIX)  cblas_dimatcopy.$(SUFFIX) \
         cblas_dgeadd.$(SUFFIX) 
 
 CCBLAS1OBJS   = \
@@ -300,6 +338,9 @@ CCBLAS1OBJS   = \
 	cblas_cdotc_sub.$(SUFFIX) cblas_cdotu_sub.$(SUFFIX) \
 	cblas_cscal.$(SUFFIX) cblas_csscal.$(SUFFIX) \
 	cblas_cswap.$(SUFFIX) cblas_scnrm2.$(SUFFIX) \
+
+
+CCBLAS1EOBJS  = \
 	cblas_caxpby.$(SUFFIX)
 
 CCBLAS2OBJS   = \
@@ -313,11 +354,10 @@ CCBLAS2OBJS   = \
 CCBLAS3OBJS   = \
 	cblas_cgemm.$(SUFFIX) cblas_csymm.$(SUFFIX) cblas_ctrmm.$(SUFFIX) cblas_ctrsm.$(SUFFIX) \
 	cblas_csyrk.$(SUFFIX) cblas_csyr2k.$(SUFFIX) \
-	cblas_chemm.$(SUFFIX) cblas_cherk.$(SUFFIX) cblas_cher2k.$(SUFFIX) \
-	cblas_comatcopy.$(SUFFIX) cblas_cimatcopy.$(SUFFIX)\
-	cblas_cgeadd.$(SUFFIX)
+	cblas_chemm.$(SUFFIX) cblas_cherk.$(SUFFIX) cblas_cher2k.$(SUFFIX)
 
-
+CCBLAS3EOBJS  = \
+	cblas_comatcopy.$(SUFFIX) cblas_cimatcopy.$(SUFFIX)\ cblas_cgeadd.$(SUFFIX) 
 
 CZBLAS1OBJS   = \
 	cblas_izamax.$(SUFFIX) cblas_dzasum.$(SUFFIX)  cblas_zaxpy.$(SUFFIX) \
@@ -325,7 +365,9 @@ CZBLAS1OBJS   = \
 	cblas_zdotc.$(SUFFIX) cblas_zdotu.$(SUFFIX) \
 	cblas_zdotc_sub.$(SUFFIX) cblas_zdotu_sub.$(SUFFIX) \
 	cblas_zscal.$(SUFFIX) cblas_zdscal.$(SUFFIX) \
-	cblas_zswap.$(SUFFIX) cblas_dznrm2.$(SUFFIX) \
+	cblas_zswap.$(SUFFIX) cblas_dznrm2.$(SUFFIX)
+
+CZBLAS1EOBJS  = \
 	cblas_zaxpby.$(SUFFIX)
 
 CZBLAS2OBJS   = \
@@ -339,7 +381,9 @@ CZBLAS2OBJS   = \
 CZBLAS3OBJS   = \
 	cblas_zgemm.$(SUFFIX) cblas_zsymm.$(SUFFIX) cblas_ztrmm.$(SUFFIX) cblas_ztrsm.$(SUFFIX) \
 	cblas_zsyrk.$(SUFFIX) cblas_zsyr2k.$(SUFFIX) \
-	cblas_zhemm.$(SUFFIX) cblas_zherk.$(SUFFIX) cblas_zher2k.$(SUFFIX)\
+	cblas_zhemm.$(SUFFIX) cblas_zherk.$(SUFFIX) cblas_zher2k.$(SUFFIX)
+
+CZBLAS3EOBJS  = \
 	cblas_zomatcopy.$(SUFFIX) cblas_zimatcopy.$(SUFFIX) \
 	cblas_zgeadd.$(SUFFIX)
 
@@ -371,6 +415,34 @@ CBLAS3OBJS   += $(CCBLAS3OBJS)
 ZBLAS1OBJS   += $(CZBLAS1OBJS)
 ZBLAS2OBJS   += $(CZBLAS2OBJS)
 ZBLAS3OBJS   += $(CZBLAS3OBJS)
+
+endif
+
+ifndef NO_BLAS_EXTENSIONS
+
+SBLAS1OBJS   += $(SBLAS1EOBJS)
+DBLAS1OBJS   += $(DBLAS1EOBJS)
+CBLAS1OBJS   += $(CBLAS1EOBJS)
+ZBLAS1OBJS   += $(ZBLAS1EOBJS)
+CBLAS2OBJS   += $(CBLAS2EOBJS)
+ZBLAS2OBJS   += $(ZBLAS2EOBJS)
+SBLAS3OBJS   += $(SBLAS3EOBJS)
+DBLAS3OBJS   += $(DBLAS3EOBJS)
+CBLAS3OBJS   += $(CBLAS3EOBJS)
+ZBLAS3OBJS   += $(ZBLAS3EOBJS)
+
+ifndef NO_CBLAS
+
+CSBLAS1OBJS   += $(CSBLAS1EOBJS)
+CDBLAS1OBJS   += $(CDBLAS1EOBJS)
+CCBLAS1OBJS   += $(CCBLAS1EOBJS)
+CZBLAS1OBJS   += $(CZBLAS1EOBJS)
+CSBLAS3OBJS   += $(CSBLAS3EOBJS)
+CDBLAS3OBJS   += $(CDBLAS3EOBJS)
+CCBLAS3OBJS   += $(CCBLAS3EOBJS)
+CZBLAS3OBJS   += $(CZBLAS3EOBJS)
+
+endif
 
 endif
 
@@ -484,6 +556,16 @@ level2 : $(SBLAS2OBJS) $(DBLAS2OBJS) $(QBLAS2OBJS) $(CBLAS2OBJS) $(ZBLAS2OBJS) $
 
 level3 : $(SBLAS3OBJS) $(DBLAS3OBJS) $(QBLAS3OBJS) $(CBLAS3OBJS) $(ZBLAS3OBJS) $(XBLAS3OBJS)
 	$(AR) $(ARFLAGS) -ru $(TOPDIR)/$(LIBNAME) $^
+
+# The list of prerequisite is created by comparing with NETLIB BLAS public API.
+# The symbol cblas_xerbla is missing here, but it does not seem to be provided
+# by libopenblas.so.0 either.
+$(TOPDIR)/$(LIBBLASNAME): $(SBLAS1OBJS) $(SBLAS2OBJS) $(SBLAS3OBJS) $(DBLAS1OBJS) $(DBLAS2OBJS) $(DBLAS3OBJS) $(CBLAS1OBJS) $(CBLAS2OBJS) $(CBLAS3OBJS) $(ZBLAS1OBJS) $(ZBLAS2OBJS) $(ZBLAS3OBJS) ../kernel/lsame.o ../kernel/scabs1.o ../kernel/dcabs1.o ../driver/others/xerbla.o
+	$(AR) $(ARFLAGS) -ru $(TOPDIR)/$(LIBBLASNAME) $^
+
+# The prerequisites must match the symbols deleted in target delete-duplicate-lapack-objects
+$(TOPDIR)/$(LIBLAPACKNAME): $(SLAPACKOBJS) $(DLAPACKOBJS) $(CLAPACKOBJS) $(ZLAPACKOBJS) ../kernel/lsame.o ../driver/others/xerbla.o
+	$(AR) $(ARFLAGS) -ru $(TOPDIR)/$(LIBLAPACKNAME) $^
 
 $(CSBLASOBJS) $(CSBLASOBJS_P) $(CDBLASOBJS) $(CDBLASOBJS_P) $(CQBLASOBJS) $(CQBLASOBJS_P) \
 $(CCBLASOBJS) $(CCBLASOBJS_P) $(CZBLASOBJS) $(CZBLASOBJS_P) $(CXBLASOBJS) $(CXBLASOBJS_P) : override CFLAGS += -DCBLAS

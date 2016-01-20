@@ -36,6 +36,8 @@ $(CBLASOBJS_P) : override CFLAGS += -DPROFILE $(COMMON_PROF)
 $(ZBLASOBJS_P) : override CFLAGS += -DPROFILE $(COMMON_PROF)
 $(XBLASOBJS_P) : override CFLAGS += -DPROFILE $(COMMON_PROF)
 
+objs    :: $(BLASOBJS) $(COMMONOBJS)
+
 libs    :: $(BLASOBJS) $(COMMONOBJS)
 	$(AR) $(ARFLAGS) -ru $(TOPDIR)/$(LIBNAME) $^
 

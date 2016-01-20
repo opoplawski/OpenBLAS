@@ -189,6 +189,26 @@ blas :
 	fi; \
 	done
 
+$(LIBBLASNAME) :
+	@$(MAKE) -C kernel commonlibs || exit 1
+	for d in $(BLASDIRS) ; \
+	do if test -d $$d; then \
+	  $(MAKE) -C $$d NO_CBLAS=1 objs || exit 1 ; \
+	fi; \
+	$(MAKE) -C interface NO_CBLAS=1 NO_BLAS_EXTENSIONS=1 ../$(LIBBLASNAME) || exit 1 ; \
+	done
+
+$(LIBBLASSONAME) : $(LIBBLASNAME)
+	$(MAKE) -C exports ../$(LIBBLASSONAME)
+
+$(LIBLAPACKNAME) : lapack_prebuild
+	$(MAKE) -C $(NETLIB_LAPACK_DIR) lapacklib
+	$(MAKE) -C lapack objs
+	$(MAKE) -C interface ../$(LIBLAPACKNAME) || exit 1 ;
+
+$(LIBLAPACKSONAME) : $(LIBLAPACKNAME)
+	$(MAKE) -C exports ../$(LIBLAPACKSONAME)
+
 hpl :
 	ln -fs $(LIBNAME) $(LIBPREFIX).$(LIBSUFFIX)
 	for d in $(BLASDIRS) ../laswp exports ; \

@@ -11,6 +11,11 @@ endif
 
 NETLIB_LAPACK_DIR = $(TOPDIR)/lapack-netlib
 
+LIBBLASNAME = libblas.a
+LIBBLASSONAME = libblas.so.3
+LIBLAPACKNAME = liblapack.a
+LIBLAPACKSONAME = liblapack.so.3
+
 # Default C compiler
 # - Only set if not specified on the command line or inherited from the environment.
 # - CC is an implicit variable so neither '?=' or 'ifndef' can be used.

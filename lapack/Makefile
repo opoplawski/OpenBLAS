@@ -6,6 +6,13 @@ SUBDIRS	= getrf getf2 laswp getrs potrf potf2 lauu2 lauum trti2 trtri
 
 FLAMEDIRS = laswp getf2 potf2 lauu2 trti2
 
+objs:
+	@for d in $(SUBDIRS) ; \
+	do if test -d $$d; then \
+	  $(MAKE) -C $$d $(@F) || exit 1 ; \
+	fi; \
+	done
+
 libs:
 	@for d in $(SUBDIRS) ; \
 	do if test -d $$d; then \
